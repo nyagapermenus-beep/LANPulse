@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="LANPulse enterprise network monitoring dashboard">
+  <title>LANPulse — Network Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="LANPulse home">
+        <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 21.5h7l4-9 6 16 4-9h5"/><circle cx="7" cy="21.5" r="2.3"/><circle cx="33" cy="19.5" r="2.3"/></svg></span>
+        <span class="brand-copy"><strong>LAN<span>Pulse</span></strong><small>NETWORK OPERATIONS</small></span>
+      </a>
+      <div class="workspace-switcher">
+        <span class="workspace-icon">HQ</span>
+        <span class="workspace-copy"><strong>Headquarters</strong><small>Enterprise network</small></span>
+        <svg class="chevron" viewBox="0 0 20 20"><path d="m6 8 4 4 4-4"/></svg>
+      </div>
+      <div class="nav-caption">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-page="overview"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg></span>Overview</button>
+        <button class="nav-link" data-page="devices"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M7 9h.01M11 9h.01M15 9h.01"/></svg></span>Devices <span class="nav-count" id="nav-device-count">12</span></button>
+        <button class="nav-link" data-page="topology"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="5" rx="1.5"/><rect x="2" y="16.5" width="6" height="5" rx="1.5"/><rect x="16" y="16.5" width="6" height="5" rx="1.5"/><path d="M12 7.5v4m-7 5v-2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2M12 11.5v2"/></svg></span>Topology</button>
+        <button class="nav-link" data-page="alerts"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></span>Alerts <span class="nav-dot" id="nav-alert-dot"></span></button>
+        <button class="nav-link" data-page="reports"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5m0 14h17M8 15l3-4 3 2 5-7"/><path d="M16 6h3v3"/></svg></span>Reports</button>
+      </nav>
+      <div class="nav-caption nav-caption-spaced">CONFIGURATION</div>
+      <nav class="main-nav">
+        <button class="nav-link" data-page="settings"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1 1.1.9-1.4 2.4-1.4-.5a7.9 7.9 0 0 1-1.5.9l-.3 1.5h-2.8l-.3-1.5a7.9 7.9 0 0 1-1.5-.9l-1.4.5-1.4-2.4 1.1-.9a7.4 7.4 0 0 1 0-1.8l-1.1-.9 1.4-2.4 1.4.5a7.9 7.9 0 0 1 1.5-.9l.3-1.5H16l.3 1.5a7.9 7.9 0 0 1 1.5.9l1.4-.5 1.4 2.4-1.1.9a7.4 7.4 0 0 1-.1 1.7Z" transform="translate(-1 -1) scale(1.08)"/></svg></span>Settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-status"><span class="pulse-dot"></span><span><strong id="sidebar-status-title">Demo environment</strong><small id="sidebar-status-sub">Sample network data</small></span></div>
+        <div class="user-profile"><div class="avatar">NA</div><div class="user-copy"><strong>Network Admin</strong><small>Administrator</small></div><button class="icon-button user-menu" title="Profile options" aria-label="Profile options"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-button mobile-menu" id="mobile-menu" aria-label="Toggle navigation"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <div class="breadcrumbs"><span>Workspace</span><svg viewBox="0 0 20 20"><path d="m7 4 6 6-6 6"/></svg><strong id="breadcrumb-current">Overview</strong></div>
+        <div class="topbar-actions">
+          <div class="environment-pill" id="environment-pill"><span class="pulse-dot"></span><span id="environment-label">DEMO MODE</span></div>
+          <div class="last-updated"><span class="last-updated-label">Last updated</span><strong id="last-updated">Just now</strong></div>
+          <button class="icon-button notification-button" id="header-alerts" title="View alerts" aria-label="View alerts"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i id="notification-indicator"></i></button>
+          <div class="avatar top-avatar">NA</div>
+        </div>
+      </header>
+
+      <div class="page-container">
+        <section class="page-view active" id="page-overview">
+          <div class="page-heading">
+            <div><div class="eyebrow">NETWORK HEALTH</div><h1>Network overview</h1><p class="page-subtitle">Monitor the health and performance of your infrastructure.</p></div>
+            <div class="heading-actions"><button class="button button-secondary" id="export-overview"><svg viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4"/></svg>Export report</button><button class="button button-primary" id="run-checks"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9A7 7 0 0 1 18 6l2 6M4 12l2 6a7 7 0 0 0 12.4-3"/></svg><span>Run checks</span></button></div>
+          </div>
+
+          <div class="notice-bar" id="demo-notice"><span class="notice-icon"><svg viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M10.3 3.9 2.7 17a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3l-7.6-13.1a2 2 0 0 0-3.4 0Z"/></svg></span><span><strong>Demonstration environment</strong> — Metrics and device statuses are simulated. Switch to Live mode in Settings to monitor registered devices on your authorised network.</span><button class="notice-link" data-open-settings>Configure live monitoring <span>→</span></button></div>
+
+          <div class="stat-grid">
+            <article class="stat-card"><div class="stat-top"><span class="stat-label">Total devices</span><span class="stat-icon icon-blue"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span></div><div class="stat-value" id="stat-total">12</div><div class="stat-foot"><span class="neutral-tag" id="stat-total-note">Across all locations</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span class="stat-label">Online devices</span><span class="stat-icon icon-green"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span></div><div class="stat-value" id="stat-online">10</div><div class="stat-foot"><span class="trend-positive" id="stat-online-note">●  Healthy connectivity</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span class="stat-label">Offline devices</span><span class="stat-icon icon-red"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div><div class="stat-value" id="stat-offline">2</div><div class="stat-foot"><span class="trend-negative" id="stat-offline-note">●  Requires attention</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span class="stat-label">Average latency</span><span class="stat-icon icon-purple"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span></div><div class="stat-value"><span id="stat-latency">34.8</span><small>ms</small></div><div class="stat-foot"><span class="neutral-tag" id="stat-latency-note">Across responding devices</span></div></article>
+          </div>
+
+          <div class="content-grid overview-grid">
+            <article class="panel performance-panel">
+              <div class="panel-header"><div><h2>Network performance</h2><p>Average response time over the last 24 hours</p></div><div class="chart-legend"><span><i class="legend-line"></i>Latency</span><span><i class="legend-line legend-dash"></i>Threshold</span></div></div>
+              <div class="chart-summary"><strong id="chart-current">34.8 <small>ms</small></strong><span class="chart-status"><i></i> Within normal range</span></div>
+              <div class="chart-wrap"><canvas id="latency-chart" aria-label="Average network latency over the last 24 hours" role="img"></canvas><div class="chart-tooltip" id="chart-tooltip"></div></div>
+              <div class="chart-xlabels"><span>00:00</span><span>04:00</span><span>08:00</span><span>12:00</span><span>16:00</span><span>20:00</span><span>Now</span></div>
+            </article>
+            <article class="panel health-panel">
+              <div class="panel-header"><div><h2>Device health</h2><p>Current availability breakdown</p></div><button class="text-button" data-page-link="devices">View devices <span>→</span></button></div>
+              <div class="health-chart-area"><div class="donut-wrap"><svg class="donut" viewBox="0 0 160 160" role="img" aria-label="Device health distribution"><circle class="donut-track" cx="80" cy="80" r="63"/><circle class="donut-online" id="donut-online" cx="80" cy="80" r="63"/><circle class="donut-offline" id="donut-offline" cx="80" cy="80" r="63"/><circle class="donut-unknown" id="donut-unknown" cx="80" cy="80" r="63"/></svg><div class="donut-center"><strong id="donut-total">12</strong><span>Devices</span></div></div></div>
+              <div class="health-legend"><div><span><i class="health-key key-online"></i>Online</span><strong id="health-online">10</strong></div><div><span><i class="health-key key-offline"></i>Offline</span><strong id="health-offline">2</strong></div><div><span><i class="health-key key-unknown"></i>Unknown</span><strong id="health-unknown">0</strong></div></div>
+            </article>
+          </div>
+
+          <div class="content-grid lower-grid">
+            <article class="panel devices-panel">
+              <div class="panel-header"><div><h2>Device status</h2><p>Latest monitoring results</p></div><button class="text-button" data-page-link="devices">All devices <span>→</span></button></div>
+              <div class="table-wrap"><table class="data-table"><thead><tr><th>DEVICE</th><th>IP ADDRESS</th><th>STATUS</th><th>LATENCY</th><th>LAST CHECKED</th><th></th></tr></thead><tbody id="overview-device-rows"></tbody></table></div>
+            </article>
+            <article class="panel alerts-panel"><div class="panel-header"><div><h2>Recent alerts</h2><p>Events requiring attention</p></div><button class="text-button" data-page-link="alerts">View all <span>→</span></button></div><div class="alert-list" id="overview-alert-list"></div></article>
+          </div>
+        </section>
+
+        <section class="page-view" id="page-devices">
+          <div class="page-heading"><div><div class="eyebrow">INFRASTRUCTURE</div><h1>Devices</h1><p class="page-subtitle">Manage registered devices and inspect their connectivity.</p></div><div class="heading-actions"><button class="button button-secondary" id="devices-export"><svg viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4"/></svg>Export CSV</button><button class="button button-primary" id="add-device"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add device</button></div></div>
+          <div class="filter-toolbar"><div class="search-field"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="device-search" type="search" placeholder="Search name, IP address or location..."></div><div class="filter-group" id="device-filters"><button class="filter-chip active" data-filter="all">All <span id="filter-all-count">12</span></button><button class="filter-chip" data-filter="online">Online <span id="filter-online-count">10</span></button><button class="filter-chip" data-filter="offline">Offline <span id="filter-offline-count">2</span></button></div><select id="device-type-filter" class="select-control" aria-label="Filter by device type"><option value="all">All device types</option><option>Router</option><option>Switch</option><option>Server</option><option>Workstation</option><option>Printer</option><option>Access Point</option><option>Firewall</option><option>Other</option></select></div>
+          <article class="panel full-table-panel"><div class="panel-header"><div><h2>Registered devices <span class="subtle-count" id="devices-table-count">12 devices</span></h2><p>Click a device to view details and monitoring history.</p></div><div class="table-actions"><span class="auto-refresh-label"><i></i>Auto refresh <b>30s</b></span></div></div><div class="table-wrap"><table class="data-table devices-table"><thead><tr><th>DEVICE</th><th>TYPE</th><th>IP ADDRESS</th><th>LOCATION</th><th>STATUS</th><th>LATENCY</th><th>UPTIME</th><th>ACTIONS</th></tr></thead><tbody id="all-device-rows"></tbody></table><div class="empty-state hidden" id="device-empty"><div class="empty-icon">⌕</div><strong>No devices found</strong><span>Try changing your search or filters.</span></div></div><div class="table-footer"><span id="table-showing">Showing 12 devices</span><span>Monitoring interval: <strong>30 seconds</strong></span></div></article>
+        </section>
+
+        <section class="page-view" id="page-topology">
+          <div class="page-heading"><div><div class="eyebrow">NETWORK MAP</div><h1>Network topology</h1><p class="page-subtitle">Visual relationships between your registered infrastructure devices.</p></div><div class="heading-actions"><button class="button button-secondary" id="topology-refresh"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 6M4 12l2 6a7 7 0 0 0 12.4-3"/></svg>Refresh map</button></div></div>
+          <div class="topology-toolbar"><div class="topology-legend"><span><i class="topology-dot online"></i>Online</span><span><i class="topology-dot offline"></i>Offline</span><span><i class="topology-dot unknown"></i>Unknown</span></div><span class="topology-hint">Select a node to inspect the device</span></div>
+          <article class="panel topology-panel"><div class="topology-canvas" id="topology-canvas"><div class="topology-empty hidden" id="topology-empty">Add devices and assign parent devices to create your network map.</div><svg id="topology-lines" class="topology-lines" aria-hidden="true"></svg><div id="topology-nodes" class="topology-nodes"></div></div><div class="topology-footer"><span><strong id="topology-device-count">12</strong> devices mapped</span><span>Relationships are based on the configured parent device.</span></div></article>
+        </section>
+
+        <section class="page-view" id="page-alerts">
+          <div class="page-heading"><div><div class="eyebrow">EVENT MANAGEMENT</div><h1>Alerts & events</h1><p class="page-subtitle">Review connectivity events, performance warnings and recoveries.</p></div><div class="heading-actions"><button class="button button-secondary" id="ack-all">Acknowledge all</button></div></div>
+          <div class="alert-summary-grid"><div class="mini-stat"><span class="mini-stat-label">Unacknowledged</span><strong id="alerts-unack">3</strong><i class="mini-indicator red"></i></div><div class="mini-stat"><span class="mini-stat-label">Critical</span><strong id="alerts-critical">1</strong><i class="mini-indicator red"></i></div><div class="mini-stat"><span class="mini-stat-label">Warnings</span><strong id="alerts-warning">1</strong><i class="mini-indicator amber"></i></div><div class="mini-stat"><span class="mini-stat-label">Informational</span><strong id="alerts-info">1</strong><i class="mini-indicator blue"></i></div></div>
+          <div class="filter-toolbar alert-filter-toolbar"><div class="search-field"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="alert-search" type="search" placeholder="Search alerts..."></div><div class="filter-group" id="alert-filters"><button class="filter-chip active" data-alert-filter="all">All events</button><button class="filter-chip" data-alert-filter="critical">Critical</button><button class="filter-chip" data-alert-filter="warning">Warnings</button><button class="filter-chip" data-alert-filter="info">Info</button></div></div>
+          <article class="panel alert-table-panel"><div class="alert-list full-alert-list" id="all-alert-list"></div><div class="empty-state hidden" id="alerts-empty"><div class="empty-icon">✓</div><strong>No matching alerts</strong><span>There are no events matching this filter.</span></div></article>
+        </section>
+
+        <section class="page-view" id="page-reports">
+          <div class="page-heading"><div><div class="eyebrow">PERFORMANCE INSIGHTS</div><h1>Reports</h1><p class="page-subtitle">A summary of recent infrastructure health and availability.</p></div><div class="heading-actions"><button class="button button-primary" id="reports-export"><svg viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4"/></svg>Download CSV</button></div></div>
+          <div class="report-kpis"><div class="report-kpi"><span>Device availability</span><strong id="report-availability">96.4%</strong><small>Current monitoring sample</small></div><div class="report-kpi"><span>Average latency</span><strong id="report-latency">34.8 ms</strong><small>Responding devices only</small></div><div class="report-kpi"><span>Recorded incidents</span><strong id="report-incidents">3</strong><small>Visible event history</small></div></div>
+          <div class="content-grid reports-grid"><article class="panel report-chart-panel"><div class="panel-header"><div><h2>Latency trend</h2><p>Average response time by hour</p></div><span class="report-period">Last 24 hours</span></div><div class="large-chart-wrap"><canvas id="report-chart" aria-label="Latency trend report" role="img"></canvas></div></article><article class="panel report-summary-panel"><div class="panel-header"><div><h2>Network summary</h2><p>Current device status</p></div></div><div class="summary-rows" id="report-summary-rows"></div></article></div>
+          <article class="panel report-notes"><div class="panel-header"><div><h2>About this report</h2><p>Interpretation and data coverage</p></div></div><p id="report-disclaimer">The current dashboard is showing demonstration data. Availability and latency values are illustrative and must not be treated as measurements of a production network. Switch to Live mode to collect measurements from authorised devices.</p></article>
+        </section>
+
+        <section class="page-view" id="page-settings">
+          <div class="page-heading"><div><div class="eyebrow">SYSTEM PREFERENCES</div><h1>Settings</h1><p class="page-subtitle">Configure the monitoring environment and application behaviour.</p></div></div>
+          <div class="settings-layout"><div class="settings-nav"><button class="settings-tab active" data-settings-tab="monitoring">Monitoring</button><button class="settings-tab" data-settings-tab="thresholds">Thresholds</button><button class="settings-tab" data-settings-tab="about">About LANPulse</button></div><div class="settings-content">
+            <div class="settings-section active" id="settings-monitoring"><div class="settings-section-head"><h2>Monitoring mode</h2><p>Choose whether the dashboard uses sample data or checks real registered devices.</p></div><div class="mode-options"><label class="mode-option" id="demo-option"><input type="radio" name="monitor-mode" value="demo" checked><span class="mode-radio"></span><span class="mode-option-content"><strong>Demonstration mode</strong><small>Use simulated devices and illustrative performance data. Safe for presentations.</small></span><span class="mode-badge">Default</span></label><label class="mode-option" id="live-option"><input type="radio" name="monitor-mode" value="live"><span class="mode-radio"></span><span class="mode-option-content"><strong>Live monitoring</strong><small>Check explicitly registered private IPv4 devices using ICMP and selected TCP ports. Requires the LANPulse Python service.</small></span></label></div><div class="settings-warning"><svg viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M10.3 3.9 2.7 17a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3l-7.6-13.1a2 2 0 0 0-3.4 0Z"/></svg><span><strong>Authorised monitoring only.</strong> Only add devices you own or have permission to monitor. ICMP may be blocked by device firewalls, so a failed ping does not always mean the device is down.</span></div><div class="settings-actions"><button class="button button-primary" id="save-mode">Save monitoring mode</button><span id="mode-save-status" class="save-status"></span></div><div class="settings-divider"></div><div class="settings-section-head"><h2>Monitoring service</h2><p>Live checks are performed by the local Python service when enabled.</p></div><div class="setting-row"><div><strong>Service connection</strong><small id="service-connection-text">Standalone demo — no backend connected</small></div><span class="connection-badge disconnected" id="service-connection-badge"><i></i>Not connected</span></div><div class="setting-row"><div><strong>Polling interval</strong><small>Time between automatic device checks</small></div><strong class="setting-value">30 seconds</strong></div></div>
+            <div class="settings-section" id="settings-thresholds"><div class="settings-section-head"><h2>Performance thresholds</h2><p>Thresholds used to highlight devices that may need investigation.</p></div><div class="setting-row"><div><strong>High latency threshold</strong><small>Flag response times above this value</small></div><div class="threshold-input"><input type="number" id="latency-threshold" value="200" min="10" max="5000"><span>ms</span></div></div><p class="settings-help">The browser demo uses this value for visual highlighting. The backend reads LANPULSE_HIGH_LATENCY_MS from its environment when started.</p></div>
+            <div class="settings-section" id="settings-about"><div class="settings-section-head"><h2>About LANPulse</h2><p>Network monitoring for small and medium enterprise environments.</p></div><div class="about-brand"><span class="brand-mark"><svg viewBox="0 0 40 40"><path d="M7 21.5h7l4-9 6 16 4-9h5"/><circle cx="7" cy="21.5" r="2.3"/><circle cx="33" cy="19.5" r="2.3"/></svg></span><div><strong>LANPulse Enterprise</strong><small>Version 1.0.0 · MVP</small></div></div><p class="about-copy">LANPulse provides a central dashboard for checking reachability, service availability and response times of explicitly registered network devices. It includes a standalone demonstration mode and an optional Python/Flask backend for live monitoring.</p><div class="setting-row"><div><strong>Frontend</strong><small>HTML, CSS and vanilla JavaScript</small></div><span class="setting-value">Static web</span></div><div class="setting-row"><div><strong>Backend</strong><small>Python Flask and SQLite</small></div><span class="setting-value">Optional</span></div><div class="setting-row"><div><strong>Licence</strong><small>MIT open-source licence</small></div><span class="setting-value">MIT</span></div></div>
+          </div></div>
+        </section>
+
+        <footer class="app-footer"><span>© 2026 LANPulse Network Operations</span><span><i class="footer-dot"></i><span id="footer-mode">Demo environment</span><span class="footer-divider">·</span>Built for network visibility</span></footer>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="device-modal" role="dialog" aria-modal="true" aria-labelledby="device-modal-title"><div class="modal modal-large"><div class="modal-header"><div><div class="eyebrow">DEVICE MANAGEMENT</div><h2 id="device-modal-title">Add a device</h2><p>Register a device that you are authorised to monitor.</p></div><button class="icon-button modal-close" data-close-modal aria-label="Close"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><form id="device-form"><div class="form-grid"><label class="form-field"><span>Device name <b>*</b></span><input name="name" required maxlength="80" placeholder="e.g. Core Router 01"></label><label class="form-field"><span>IP address <b>*</b></span><input name="ip_address" required placeholder="e.g. 192.168.1.1" inputmode="decimal"></label><label class="form-field"><span>Device type</span><select name="device_type"><option>Router</option><option>Switch</option><option>Server</option><option>Workstation</option><option>Printer</option><option>Access Point</option><option>Firewall</option><option>Other</option></select></label><label class="form-field"><span>Location</span><input name="location" maxlength="100" placeholder="e.g. HQ / Server room"></label><label class="form-field"><span>Monitoring method</span><select name="check_method" id="form-check-method"><option value="both">ICMP + TCP</option><option value="icmp">ICMP ping only</option><option value="tcp">TCP ports only</option></select></label><label class="form-field" id="ports-field"><span>TCP ports <small>(comma-separated)</small></span><input name="ports" value="80,443" placeholder="80,443,22"></label><label class="form-field form-field-full"><span>Parent device <small>(optional; for topology)</small></span><select name="parent_id" id="parent-device-select"><option value="">No parent / top-level device</option></select></label></div><div class="form-help"><svg viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M10.3 3.9 2.7 17a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3l-7.6-13.1a2 2 0 0 0-3.4 0Z"/></svg>Live monitoring accepts private IPv4 addresses (10.x.x.x, 172.16–31.x.x, 192.168.x.x) and loopback addresses only. Use only authorised targets.</div><div class="modal-actions"><button type="button" class="button button-secondary" data-close-modal>Cancel</button><button type="submit" class="button button-primary" id="save-device-button">Add device</button></div></form></div></div>
+
+  <div class="modal-backdrop hidden" id="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title"><div class="modal detail-modal"><div class="modal-header"><div><div class="eyebrow">DEVICE DETAILS</div><h2 id="detail-title">Device</h2><p id="detail-subtitle">Device information and latest checks</p></div><button class="icon-button modal-close" data-close-modal aria-label="Close"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><div id="detail-content" class="detail-content"></div><div class="modal-actions"><button class="button button-secondary" data-close-modal>Close</button><button class="button button-primary" id="detail-check">Run check now</button></div></div></div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
